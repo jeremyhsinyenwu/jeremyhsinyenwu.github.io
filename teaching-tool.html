@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>語境崩塌教案生成器 — 吳昕諺</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAFAF8;--bg-card:#F5F5F2;--ink:#1C1C1A;--mid:#888884;--soft:#B8B8B4;
+  --accent:#7C6F5B;--accent-light:#F2EDE6;--warm:#C06B42;--warm-light:#FAF0EA;
+  --line:#E8E8E4;--warn-bg:#FEF9EC;--warn-border:#E8D88A;--warn-text:#7A6010;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;padding:3rem 1.5rem}
+.wrap{max-width:680px;margin:0 auto}
+
+/* NAV */
+.back{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--soft);text-decoration:none;margin-bottom:2.5rem;letter-spacing:0.04em;transition:color 0.2s}
+.back:hover{color:var(--ink)}
+
+/* CONCEPT BOX */
+.concept-box{border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.concept-header{background:var(--bg-card);padding:1rem 1.25rem;border-bottom:1px solid var(--line)}
+.concept-label{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--soft);margin-bottom:0.35rem}
+.concept-title{font-size:1.1rem;font-weight:400;color:var(--ink)}
+.concept-body{padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1rem}
+.theory-block{font-size:0.88rem;color:var(--mid);line-height:1.85}
+.theory-block strong{color:var(--ink);font-weight:400}
+.quote{border-left:2px solid var(--line);padding:0.5rem 1rem;margin:0.5rem 0;font-size:0.82rem;color:var(--soft);font-style:italic;line-height:1.7}
+.toggle-btn{background:none;border:none;font-size:0.82rem;color:var(--soft);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+.toggle-btn:hover{color:var(--ink)}
+.concept-extra{display:none}
+.concept-extra.show{display:block}
+.concept-extra-inner{padding:0 1.5rem 1.25rem;display:flex;flex-direction:column;gap:1rem}
+.divider{height:1px;background:var(--line)}
+.cases-label{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--soft);margin-bottom:0.6rem}
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.case-item{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;padding:0.9rem 1rem}
+.case-group{font-size:0.62rem;font-weight:500;color:var(--soft);margin-bottom:0.2rem;text-transform:uppercase;letter-spacing:0.08em}
+.case-title{font-size:0.85rem;font-weight:400;color:var(--ink);margin-bottom:0.2rem}
+.case-desc{font-size:0.78rem;color:var(--mid);line-height:1.65}
+
+/* FORM */
+.form-label{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--soft);margin-bottom:0.75rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem}
+.field{display:flex;flex-direction:column;gap:0.4rem}
+.field label{font-size:0.75rem;color:var(--mid);font-weight:400}
+.field input{font-size:0.88rem;padding:0.6rem 0.85rem;border:1px solid var(--line);border-radius:2px;background:var(--bg);color:var(--ink);outline:none;font-family:var(--sans);transition:border-color 0.2s}
+.field input:focus{border-color:var(--accent)}
+.field input::placeholder{color:var(--soft);font-size:0.82rem}
+.field.full{grid-column:1/-1}
+
+.err{background:var(--warm-light);border:1px solid var(--warm);border-radius:2px;padding:0.6rem 1rem;font-size:0.8rem;color:var(--warm);margin-bottom:0.75rem;display:none}
+.err.show{display:block}
+
+.gen-btn{width:100%;padding:0.75rem;font-size:0.88rem;font-weight:400;cursor:pointer;background:var(--ink);color:var(--bg);border:none;border-radius:2px;font-family:var(--sans);letter-spacing:0.04em;transition:opacity 0.2s;margin-top:0.25rem}
+.gen-btn:hover{opacity:0.85}
+
+/* LOADING */
+.loading{display:none;align-items:center;gap:0.6rem;color:var(--soft);font-size:0.82rem;margin-top:1rem}
+.loading.show{display:flex}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--soft);animation:pulse 1.2s ease-in-out infinite}
+.dot:nth-child(2){animation-delay:0.2s}
+.dot:nth-child(3){animation-delay:0.4s}
+@keyframes pulse{0%,80%,100%{opacity:0.2}40%{opacity:1}}
+
+/* OUTPUT */
+.output{margin-top:2rem;border-top:1px solid var(--line);padding-top:2rem;display:none}
+.output.show{display:block}
+.out-section{margin-bottom:1.5rem}
+.out-label{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--soft);margin-bottom:0.6rem}
+.out-content{font-size:0.88rem;color:var(--ink);line-height:1.85;white-space:pre-wrap}
+.tag-row{display:flex;flex-wrap:wrap;gap:0.4rem}
+.tag{font-size:0.72rem;padding:0.25rem 0.75rem;border-radius:2px;background:var(--accent-light);color:var(--accent);border:1px solid transparent}
+.phase-list{display:flex;flex-direction:column;gap:0.6rem}
+.phase-item{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;padding:0.9rem 1.1rem;font-size:0.85rem;color:var(--ink);line-height:1.75}
+.phase-num{font-size:0.65rem;font-weight:500;color:var(--soft);margin-bottom:0.25rem;letter-spacing:0.08em;text-transform:uppercase}
+.warn-box{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:2px;padding:0.85rem 1rem;font-size:0.82rem;color:var(--warn-text);line-height:1.7}
+
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);font-size:0.72rem;color:var(--soft);display:flex;justify-content:space-between}
+footer a{color:var(--soft);text-decoration:none}
+footer a:hover{color:var(--ink)}
+
+@media(max-width:600px){
+  body{padding:2rem 1.25rem}
+  .form-grid{grid-template-columns:1fr}
+  .cases-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="index.html" class="back">← 回首頁</a>
+
+  <div class="concept-box">
+    <div class="concept-header">
+      <div class="concept-label">核心概念 · Context Collapse</div>
+      <div class="concept-title">語境崩塌教案生成器</div>
+    </div>
+    <div class="concept-body">
+      <div class="theory-block">
+        <strong>語境崩塌（Context Collapse）</strong>是傳播學者 danah boyd 與 Michael Wesch 提出的概念，指稱在社群媒體平台上，原本屬於不同社交語境的受眾——家人、同事、朋友、陌生人——被演算法與平台設計強制壓縮成單一、扁平的「觀看群體」。
+        <div class="quote">「當你在 Facebook 發一則動態，你同時在對你的老闆、你的媽媽、你的高中同學、以及一個你根本不記得的追蹤者說話。」</div>
+        這種崩塌迫使使用者陷入困境：<strong>為誰說話？說什麼才安全？</strong>大多數人選擇了自我審查——發展出一套刻意模糊的「最小公約數」表達方式，而非真實的自我。
+      </div>
+      <button class="toggle-btn" onclick="toggleExtra()">▸ 展開：在邊緣族群與網路中的危險性</button>
+    </div>
+    <div class="concept-extra" id="extra">
+      <div class="divider"></div>
+      <div class="concept-extra-inner">
+        <div class="theory-block">對多數人而言，語境崩塌只是尷尬；對邊緣族群而言，它可能是<strong>生存威脅</strong>。平台「預設公開性（default publicness）」的設計，系統性地對那些需要在不同語境維持不同身份的人造成不成比例的傷害。</div>
+        <div>
+          <div class="cases-label">真實風險案例</div>
+          <div class="cases-grid">
+            <div class="case-item">
+              <div class="case-group">LGBTQ+ 青少年</div>
+              <div class="case-title">被演算法「出櫃」</div>
+              <div class="case-desc">平台的「你可能認識」推薦功能，曾將同志社群成員推送給其家人或同學，在當事人準備好之前強制揭露身份。</div>
+            </div>
+            <div class="case-item">
+              <div class="case-group">移工 / 移民</div>
+              <div class="case-title">雙重身份的崩塌</div>
+              <div class="case-desc">在原生社群展示的文化認同或政治立場，被跨語境截圖，成為職場或移民審查中的不利證據。</div>
+            </div>
+            <div class="case-item">
+              <div class="case-group">女性創作者</div>
+              <div class="case-title">私人內容的武器化</div>
+              <div class="case-desc">原本發給特定群體的貼文或照片，透過轉發脫離原始語境，成為騷擾或惡意散布的素材。</div>
+            </div>
+            <div class="case-item">
+              <div class="case-group">精神健康弱勢者</div>
+              <div class="case-title">求助訊息的反噬</div>
+              <div class="case-desc">在匿名社群中的脆弱表達，因平台實名制或社交圖譜洩漏，被連結回真實身份，導致污名化與社會排除。</div>
+            </div>
+          </div>
+        </div>
+        <div class="theory-block">研究者 Cho（2018）將此稱為<strong>「機器出櫃（outed by the machine）」</strong>——平台演算法在使用者毫不知情的情況下，透過資料串聯、推薦邏輯與預設設定，洩露了當事人精心維護的身份界線。這不是使用者的錯誤，而是<strong>平台設計本身內嵌的暴力</strong>。</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="form-label">教學條件</p>
+  <div class="form-grid">
+    <div class="field">
+      <label>學生年齡層</label>
+      <input type="text" id="age" placeholder="例：高中一年級、大學生...">
+    </div>
+    <div class="field">
+      <label>班級人數</label>
+      <input type="text" id="size" placeholder="例：25人、30人...">
+    </div>
+    <div class="field">
+      <label>課程時間</label>
+      <input type="text" id="duration" placeholder="例：45分鐘、兩節課90分鐘...">
+    </div>
+    <div class="field">
+      <label>教學場域</label>
+      <input type="text" id="setting" placeholder="例：一般教室、學生自帶手機...">
+    </div>
+    <div class="field full">
+      <label>補充說明（選填）</label>
+      <input type="text" id="note" placeholder="例：學生已有 IG 帳號、班上有特殊需求學生...">
+    </div>
+  </div>
+
+  <div class="err" id="err">請至少填寫「學生年齡層」與「課程時間」，才能生成教案。</div>
+  <button class="gen-btn" onclick="generate()">生成客製化教案 →</button>
+
+  <div class="loading" id="loading">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <span>正在生成客製化教案⋯</span>
+  </div>
+
+  <div class="output" id="output">
+    <div class="out-section">
+      <div class="out-label">教學目標</div>
+      <div class="tag-row" id="out-goals"></div>
+    </div>
+    <div class="out-section">
+      <div class="out-label">平台建議</div>
+      <div class="out-content" id="out-platform"></div>
+    </div>
+    <div class="out-section">
+      <div class="out-label">課程流程</div>
+      <div class="phase-list" id="out-phases"></div>
+    </div>
+    <div class="out-section">
+      <div class="out-label">角色設計建議</div>
+      <div class="out-content" id="out-roles"></div>
+    </div>
+    <div class="out-section">
+      <div class="out-label">反思討論問題</div>
+      <div class="out-content" id="out-reflection"></div>
+    </div>
+    <div class="warn-box" id="out-warn"></div>
+  </div>
+
+  <footer>
+    <span>吳昕諺 Hsin-Yen Wu · 教案發想</span>
+    <a href="index.html">← 回首頁</a>
+  </footer>
+</div>
+
+<script>
+function toggleExtra(){
+  const el=document.getElementById('extra');
+  const btn=document.querySelector('.toggle-btn');
+  el.classList.toggle('show');
+  btn.textContent=el.classList.contains('show')?'▾ 收起：邊緣族群與網路中的危險性':'▸ 展開：在邊緣族群與網路中的危險性';
+}
+
+async function generate(){
+  const age=document.getElementById('age').value.trim();
+  const size=document.getElementById('size').value.trim();
+  const duration=document.getElementById('duration').value.trim();
+  const setting=document.getElementById('setting').value.trim();
+  const note=document.getElementById('note').value.trim();
+  const err=document.getElementById('err');
+
+  if(!age||!duration){err.classList.add('show');return;}
+  err.classList.remove('show');
+
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('output').classList.remove('show');
+
+  const prompt=`你是一位傳播教育與HCI領域的課程設計師。請根據以下老師提供的條件，為「語境崩塌（Context Collapse）角色身份追查活動」生成一份客製化教案。
+
+活動核心：每位學生在課前被賦予虛構角色（含角色名稱、職業、個性、興趣），在指定平台以公開方式展現角色，同時隱藏真實身份。部分學生扮演「追查者」，利用線索嘗試破解他人身份。透過此讓學生親身體驗語境崩塌、平台演算法與數位身份認同，並特別關注邊緣族群（如LGBTQ+青少年、移工、女性）所面臨的不對稱風險。
+
+老師填寫的教學條件：
+- 學生年齡層：${age||'未填寫'}
+- 班級人數：${size||'未填寫'}
+- 課程時間：${duration||'未填寫'}
+- 教學場域：${setting||'未填寫'}
+- 補充說明：${note||'無'}
+
+重要原則：
+- 根據年齡與場域靈活判斷：高中以上且有裝置可在真實平台操作；高中以下或無裝置則採紙本/模擬方式
+- 若資訊不足，做出合理推斷並在教案中說明假設
+
+請只回覆以下JSON，不要有其他文字：
+{"goals":["目標1","目標2","目標3"],"platform":"平台建議（2-3句）","phases":[{"num":"準備階段","content":"說明"},{"num":"執行階段","content":"說明"},{"num":"追查階段","content":"說明"},{"num":"揭露與反思","content":"說明"}],"roles":"角色設計建議（具體說明3-5種角色類型）","reflection":"3-4個反思討論問題，至少一題聚焦邊緣族群的不對稱風險","warning":"教師注意事項（隱私、安全、倫理提醒）"}`;
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content[0].text.replace(/```json|```/g,'').trim();
+    const json=JSON.parse(text);
+
+    const goals=document.getElementById('out-goals');
+    goals.innerHTML='';
+    json.goals.forEach(g=>{const t=document.createElement('span');t.className='tag';t.textContent=g;goals.appendChild(t);});
+    document.getElementById('out-platform').textContent=json.platform;
+    const phases=document.getElementById('out-phases');
+    phases.innerHTML='';
+    json.phases.forEach(p=>{phases.innerHTML+=`<div class="phase-item"><div class="phase-num">${p.num}</div>${p.content}</div>`;});
+    document.getElementById('out-roles').textContent=json.roles;
+    document.getElementById('out-reflection').textContent=json.reflection;
+    document.getElementById('out-warn').textContent='⚠ '+json.warning;
+    document.getElementById('output').classList.add('show');
+  }catch(e){
+    document.getElementById('out-platform').textContent='生成失敗，請重試。';
+    document.getElementById('output').classList.add('show');
+  }
+  document.getElementById('loading').classList.remove('show');
+}
+</script>
+</body>
+</html>
