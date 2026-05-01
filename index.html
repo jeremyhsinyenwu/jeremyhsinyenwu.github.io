@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吳昕諺 Hsin-Yen Wu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAFAF8;
+  --bg-card:#F5F5F2;
+  --ink:#1C1C1A;
+  --mid:#888884;
+  --soft:#B8B8B4;
+  --accent:#7C6F5B;
+  --accent-light:#F2EDE6;
+  --warm:#C06B42;
+  --warm-light:#FAF0EA;
+  --line:#E8E8E4;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.75;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 4rem;background:rgba(250,250,248,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-logo{font-size:0.9rem;font-weight:400;color:var(--ink);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:0.78rem;font-weight:400;letter-spacing:0.06em;color:var(--soft);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--ink)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:5rem}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:6rem 4rem;border-right:1px solid var(--line)}
+.hero-label{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:1.5rem}
+.hero-name{font-size:clamp(2.8rem,5.5vw,5rem);font-weight:300;line-height:1.05;letter-spacing:-0.02em;margin-bottom:0.3rem;color:var(--ink)}
+.hero-name-en{font-size:clamp(1.2rem,2.2vw,2rem);font-weight:300;font-style:italic;color:var(--mid);margin-bottom:2.5rem}
+.hero-desc{font-size:0.95rem;color:var(--mid);line-height:1.9;max-width:40ch;margin-bottom:2.5rem}
+.hero-desc strong{color:var(--ink);font-weight:400}
+.hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.tag{font-size:0.68rem;letter-spacing:0.06em;padding:0.3rem 0.8rem;border:1px solid var(--line);border-radius:2px;color:var(--soft);background:var(--bg-card)}
+.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:6rem 4rem}
+.hero-photo{width:100%;aspect-ratio:3/4;max-height:520px;background:linear-gradient(150deg,#E8EDE8 0%,#EDE8E2 60%,#E8DDD6 100%);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft)}
+
+/* SECTIONS */
+section{padding:7rem 4rem;border-top:1px solid var(--line)}
+.section-header{display:grid;grid-template-columns:7rem 1fr;gap:3rem;margin-bottom:4rem;align-items:start}
+.section-num{font-size:4.5rem;font-weight:300;color:var(--line);line-height:1;letter-spacing:-0.03em}
+.section-meta{padding-top:0.25rem}
+.section-tag{display:inline-block;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:0.6rem}
+.section-title{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:0.75rem;letter-spacing:-0.01em}
+.section-title em{font-style:italic;color:var(--warm)}
+.section-desc{font-size:0.9rem;color:var(--mid);max-width:52ch;line-height:1.85}
+
+/* RESEARCH CARDS */
+.research-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.research-card{background:var(--bg);padding:2.25rem;position:relative;transition:background 0.2s}
+.research-card:hover{background:#fff}
+.research-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease}
+.research-card:hover::before{transform:scaleX(1)}
+.research-year{font-size:0.67rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft);margin-bottom:1rem}
+.research-topic{font-size:1.05rem;font-weight:400;line-height:1.4;color:var(--ink);margin-bottom:0.7rem}
+.research-body{font-size:0.83rem;color:var(--mid);line-height:1.8;margin-bottom:1.25rem}
+.research-tags{display:flex;flex-wrap:wrap;gap:0.35rem}
+.rtag{font-size:0.62rem;letter-spacing:0.07em;text-transform:uppercase;padding:0.18rem 0.55rem;border-radius:2px;background:var(--accent-light);color:var(--accent)}
+
+/* WORK LIST */
+.work-list{display:flex;flex-direction:column}
+.work-item{display:grid;grid-template-columns:7rem 1fr auto;align-items:start;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--line)}
+.work-item:hover .work-title{color:var(--accent)}
+.work-year{font-size:0.72rem;letter-spacing:0.06em;color:var(--soft);padding-top:0.2rem}
+.work-title{font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:0.25rem;transition:color 0.2s}
+.work-venue{font-size:0.8rem;color:var(--soft);margin-bottom:0.3rem}
+.work-excerpt{font-size:0.8rem;color:var(--mid);line-height:1.7;max-width:55ch}
+.work-badge{font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.65rem;border-radius:2px;white-space:nowrap;margin-top:0.2rem;flex-shrink:0}
+.b-paper{background:var(--accent-light);color:var(--accent)}
+.b-conf{background:var(--warm-light);color:var(--warm)}
+.b-proj{background:#EEF4EE;color:#3D7040}
+
+/* TEACHING */
+.edu-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid var(--line)}
+.edu-intro-text{font-size:0.9rem;color:var(--mid);line-height:1.9}
+.edu-intro-text p+p{margin-top:1rem}
+.edu-stat{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-content:start}
+.stat-box{padding:1.35rem;background:var(--bg-card);border:1px solid var(--line);border-radius:2px}
+.stat-num{font-size:2rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:0.3rem}
+.stat-label{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft)}
+.edu-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
+.edu-card{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;color:inherit}
+.edu-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(28,28,26,0.06)}
+.edu-card-head{height:3px;background:var(--warm)}
+.edu-card-head.sage{background:var(--accent)}
+.edu-card-head.mixed{background:linear-gradient(90deg,var(--accent) 50%,var(--warm) 50%)}
+.edu-card-body{padding:1.6rem}
+.edu-card-tag{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:0.7rem;font-weight:500}
+.edu-card-tag.sage{color:var(--accent)}
+.edu-card-title{font-size:1rem;font-weight:400;line-height:1.4;color:var(--ink);margin-bottom:0.7rem}
+.edu-card-desc{font-size:0.82rem;color:var(--mid);line-height:1.8;margin-bottom:1.1rem}
+.edu-card-meta{display:flex;gap:0.75rem;font-size:0.72rem;color:var(--soft);border-top:1px solid var(--line);padding-top:0.9rem}
+.edu-philosophy{padding-bottom:3rem;margin-bottom:3rem;border-bottom:1px solid var(--line)}
+.edu-philo-main{font-family:var(--sans);font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:300;color:var(--ink);line-height:1.4;margin-bottom:1.5rem;letter-spacing:-0.01em}
+.edu-philo-main-en{font-style:italic;color:var(--mid);font-size:0.75em}
+.edu-philo-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.edu-philo-body{font-size:0.88rem;color:var(--mid);line-height:1.95}
+.edu-philo-en{color:var(--soft)}
+
+/* COOKING */
+.cooking-section{background:var(--ink);color:var(--bg);border-top:none;padding:7rem 4rem}
+.cooking-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.cooking-label{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--soft);margin-bottom:1.25rem}
+.cooking-title{font-size:clamp(2.2rem,4.5vw,4rem);font-weight:300;line-height:1.1;margin-bottom:1.25rem;letter-spacing:-0.01em}
+.cooking-title em{font-style:italic;color:#C9A96E}
+.cooking-body{font-size:0.9rem;color:rgba(250,250,248,0.5);line-height:1.9;max-width:40ch}
+.cooking-right{display:flex;flex-direction:column;gap:1px;background:rgba(250,250,248,0.07);border:1px solid rgba(250,250,248,0.07);border-radius:2px;overflow:hidden}
+.cuisine-item{padding:1.35rem 1.75rem;background:rgba(250,250,248,0.02);display:flex;justify-content:space-between;align-items:center;transition:background 0.2s}
+.cuisine-item:hover{background:rgba(250,250,248,0.06)}
+.cuisine-name{font-size:0.95rem;font-weight:300;color:rgba(250,250,248,0.85)}
+.cuisine-note{font-size:0.72rem;color:rgba(250,250,248,0.28);letter-spacing:0.04em;font-style:italic}
+
+/* CONTACT */
+.contact-section{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.contact-headline{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:300;line-height:1.15;color:var(--ink);letter-spacing:-0.01em}
+.contact-headline em{font-style:italic;color:var(--warm)}
+.contact-links{display:flex;flex-direction:column;gap:0.75rem}
+.contact-link{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.35rem;background:var(--bg-card);border:1px solid var(--line);border-radius:2px;text-decoration:none;color:var(--ink);transition:border-color 0.2s,background 0.2s}
+.contact-link:hover{border-color:var(--accent);background:var(--accent-light)}
+.contact-link-label{font-size:0.85rem;font-weight:400}
+.contact-link-val{font-size:0.78rem;color:var(--soft)}
+.contact-link-arrow{font-size:1rem;color:var(--soft);transition:transform 0.2s,color 0.2s}
+.contact-link:hover .contact-link-arrow{transform:translateX(3px);color:var(--accent)}
+
+footer{padding:2rem 4rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:var(--soft)}
+
+.fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.65s ease,transform 0.65s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nav-links{gap:1.5rem}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{padding:7rem 1.5rem 3rem;border-right:none;border-bottom:1px solid var(--line)}
+  .hero-right{display:none}
+  section{padding:5rem 1.5rem}
+  .section-header{grid-template-columns:1fr;gap:0.75rem}
+  .section-num{font-size:3rem}
+  .work-item{grid-template-columns:1fr;gap:0.4rem}
+  .edu-intro,.cooking-inner,.contact-section{grid-template-columns:1fr;gap:2.5rem}
+  .cooking-section{padding:5rem 1.5rem}
+  footer{flex-direction:column;gap:0.5rem;text-align:center}
+}
+@media(max-width:580px){.nav-links{display:none}.research-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">吳昕諺 HW</a>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#academic">Academic Work</a></li>
+    <li><a href="#teaching">教案應用</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="border-top:none;padding:0">
+  <div class="hero-left">
+    <div class="hero-label">NCCU · GCIT · Communication</div>
+    <h1 class="hero-name">吳昕諺</h1>
+    <div class="hero-name-en">Hsin-Yen Wu · Jeremy</div>
+    <p class="hero-desc">
+      MA student at National Chengchi University's Graduate Institute of 
+      Global Communication and Technology Innovation. I study 
+      <strong>digital mediation and platform power</strong> — 
+      asking how algorithmic systems shape the lives of marginalized 
+      communities, and building toward computational methods to 
+      understand these dynamics at scale.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Digital Mediation</span>
+      <span class="tag">Platform Power</span>
+      <span class="tag">Marginalized HCI</span>
+      <span class="tag">LGBTQ+ Studies</span>
+      <span class="tag">NLP</span>
+      <span class="tag">Network Analysis</span>
+      <span class="tag">Agent-based Modeling</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo">your photo here</div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-header fade-in">
+    <div class="section-num">01</div>
+    <div class="section-meta">
+      <span class="section-tag">Ongoing & Exploratory</span>
+      <h2 class="section-title">Research <em>Interests</em></h2>
+      <p class="section-desc">My work sits at the intersection of communication, HCI, and computational social science — asking how platforms mediate power, and how marginalized communities navigate systems not designed for them.</p>
+    </div>
+  </div>
+  <div class="research-grid fade-in">
+    <div class="research-card">
+      <div class="research-year">Core Interest</div>
+      <h3 class="research-topic">Digital Mediation & Platform Power Structures</h3>
+      <p class="research-body">How platforms mediate human experience through algorithmic design — shaping visibility, discourse, and access in ways that systematically advantage some and exclude others.</p>
+      <div class="research-tags"><span class="rtag">Platform Studies</span><span class="rtag">Algorithmic Power</span><span class="rtag">Digital Mediation</span></div>
+    </div>
+    <div class="research-card">
+      <div class="research-year">Core Interest</div>
+      <h3 class="research-topic">Marginalized Communities & HCI</h3>
+      <p class="research-body">How LGBTQ+ youth, gender minorities, and other marginalized groups navigate and resist systems not designed for them — developing workarounds, polymedia strategies, and digital resilience under structural constraint.</p>
+      <div class="research-tags"><span class="rtag">Marginalized HCI</span><span class="rtag">LGBTQ+ Studies</span><span class="rtag">Polymedia</span><span class="rtag">Digital Survival</span></div>
+    </div>
+    <div class="research-card">
+      <div class="research-year">Future Direction</div>
+      <h3 class="research-topic">Computational Methods for Social Phenomena</h3>
+      <p class="research-body">Building toward NLP, network analysis, and agent-based modeling as tools to study platform dynamics and marginalized experience at scale — bridging qualitative insight with computational rigor.</p>
+      <div class="research-tags"><span class="rtag">NLP</span><span class="rtag">Network Analysis</span><span class="rtag">Agent-based Modeling</span><span class="rtag">Comp. Social Science</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIC WORK -->
+<section id="academic">
+  <div class="section-header fade-in">
+    <div class="section-num">02</div>
+    <div class="section-meta">
+      <span class="section-tag">Papers & Projects</span>
+      <h2 class="section-title">Academic <em>Work</em></h2>
+      <p class="section-desc">Research papers and projects from graduate study at NCCU's Graduate Institute of Global Communication and Technology Innovation.</p>
+    </div>
+  </div>
+  <div class="work-list fade-in">
+
+    <div class="work-item">
+      <div class="work-year">2025</div>
+      <div>
+        <div class="work-title">Polymedia Survival in the Margins: Digital Survival Strategies of Taiwanese and Thai LGBTQ+ Youth and Reflections on Technology Governance</div>
+        <div class="work-venue">Research Proposal · NCCU GCIT</div>
+        <div class="work-excerpt">An explanatory sequential mixed-methods study examining how LGBTQ+ youth in Taiwan and Thailand develop cross-platform "polymedia" survival strategies — navigating algorithmic surveillance on mainstream social media while turning to generative AI as an alternative emotional sanctuary.</div>
+      </div>
+      <span class="work-badge b-proj">Proposal</span>
+    </div>
+
+    <div class="work-item">
+      <div class="work-year">2025</div>
+      <div>
+        <div class="work-title">Between Visibility and Strategy: LGBTQ+ Representation in South Korean Popular Dramas (2007–2022)</div>
+        <div class="work-venue">Course Paper · NCCU GCIT</div>
+        <div class="work-excerpt">A mixed-methods study combining content analysis and case study, examining LGBTQ+ representation across the 100 most globally popular K-dramas. In-depth analysis of <em>Itaewon Class</em> and <em>Move to Heaven</em> reveals both the potential and limitations of queer inclusion in Korean media storytelling.</div>
+      </div>
+      <span class="work-badge b-paper">Paper</span>
+    </div>
+
+    <div class="work-item">
+      <div class="work-year">2025</div>
+      <div>
+        <div class="work-title">Between Hesitation and Implementation: Investigating Taiwan High School Teachers' Attitudes Toward AI in the Classroom and Designing a Practical Collaboration Template</div>
+        <div class="work-venue">Course Project · NCCU GCIT · with Chen, Yu-Sheng · supervised by Prof. Sunny Xun Liu</div>
+        <div class="work-excerpt">A qualitative study using semi-structured interviews with high school humanities teachers in Taiwan, examining their attitudes, anxieties, and strategies around AI integration. Findings informed the design of an AI-assisted teaching starter kit — TeachFlow — addressing differentiated learning needs across the pre-, during-, and post-class instructional cycle.</div>
+      </div>
+      <span class="work-badge b-proj">Project</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section id="teaching">
+  <div class="section-header fade-in">
+    <div class="section-num">03</div>
+    <div class="section-meta">
+      <span class="section-tag">Curriculum Design & Applied Practice</span>
+      <h2 class="section-title">教案 <em>發想</em> 應用</h2>
+      <p class="section-desc">將傳播研究與 HCI 觀點轉化為實際可用的教學設計——媒體識讀、數位公民素養，與跨領域應用。</p>
+    </div>
+  </div>
+  <div class="edu-philosophy fade-in">
+    <p class="edu-philo-main">媒體識讀不應該只停留在 fact check。<br><span class="edu-philo-main-en">Media literacy is more than fact-checking.</span></p>
+    <div class="edu-philo-cols">
+      <p class="edu-philo-body">媒體識讀是每個人的課題——數位暴力、平台權力結構與演算法設計的傷害，青少年、一般使用者、邊緣族群都無法倖免。這些教案相信，透過在學教育更能夠防範這些傷害於未然。希望 bridge 學術研究與教學現場，讓老師和學生一起建立對數位世界更清醒的眼光。</p>
+      <p class="edu-philo-body edu-philo-en">Media literacy is everyone's challenge — digital violence, platform power structures, and algorithmic design can harm youth, everyday users, and marginalized communities alike. These lesson designs believe that school-based education is one of the most powerful places to build prevention. They aim to bridge academic research and the classroom, helping teachers and students develop a clearer, more critical eye for the digital world.</p>
+    </div>
+  </div>
+  <div class="edu-cards fade-in">
+    <a href="teaching-tool.html" class="edu-card" style="text-decoration:none;display:block">
+      <div class="edu-card-head sage"></div>
+      <div class="edu-card-body">
+        <div class="edu-card-tag sage">平台權力 · 語境崩塌</div>
+        <h3 class="edu-card-title">語境崩塌角色身份追查活動</h3>
+        <p class="edu-card-desc">學生扮演虛構角色在平台公開展現身份，同時隱藏真實自我。部分學生負責追查他人身份——親身體驗語境崩塌與平台設計的危險性。內建 AI 教案生成器，老師填寫條件即可得到客製化教案。</p>
+        <div class="edu-card-meta"><span>含 AI 教案生成</span><span>適用各年齡層</span><span>開啟工具 →</span></div>
+      </div>
+    </a>
+    <div class="edu-card">
+      <div class="edu-card-head"></div>
+      <div class="edu-card-body">
+        <div class="edu-card-tag">數位公民素養</div>
+        <h3 class="edu-card-title">〔發想中〕第二個教案概念</h3>
+        <p class="edu-card-desc">可以是數位足跡、演算法推薦、平台權力結構，或其他你有興趣的主題。</p>
+        <div class="edu-card-meta"><span>規劃中</span></div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-head mixed"></div>
+      <div class="edu-card-body">
+        <div class="edu-card-tag">傳播 × HCI</div>
+        <h3 class="edu-card-title">〔發想中〕第三個教案概念</h3>
+        <p class="edu-card-desc">可以是 AI 工具的倫理討論、Podcast 製作作為傳播實踐，或其他你有興趣的主題。</p>
+        <div class="edu-card-meta"><span>規劃中</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COOKING -->
+<section class="cooking-section">
+  <div class="cooking-inner">
+    <div class="fade-in">
+      <div class="cooking-label">Beyond the Academy</div>
+      <h2 class="cooking-title">I love to<br><em>cook.</em></h2>
+      <p class="cooking-body">My biggest dream right now is to have my own kitchen and make cuisine — food as a way of thinking about culture, care, and craft. The stove is where I slow down.</p>
+    </div>
+    <div class="cooking-right fade-in">
+      <div class="cuisine-item"><span class="cuisine-name">台式家常</span><span class="cuisine-note">comfort & memory</span></div>
+      <div class="cuisine-item"><span class="cuisine-name">Pasta</span><span class="cuisine-note">technique & simplicity</span></div>
+      <div class="cuisine-item"><span class="cuisine-name">Slow braises</span><span class="cuisine-note">patience & depth</span></div>
+      <div class="cuisine-item"><span class="cuisine-name">Baking</span><span class="cuisine-note">precision & joy</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-section">
+    <div class="fade-in">
+      <h2 class="contact-headline">Let's <em>talk</em><br>about research,<br>ideas & collaboration.</h2>
+    </div>
+    <div class="contact-links fade-in">
+      <a href="mailto:your@email.com" class="contact-link">
+        <div><div class="contact-link-label">Email</div><div class="contact-link-val">your@email.com</div></div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="https://github.com/jeremyhsinyenwu" class="contact-link" target="_blank">
+        <div><div class="contact-link-label">GitHub</div><div class="contact-link-val">github.com/jeremyhsinyenwu</div></div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="cv.pdf" class="contact-link" target="_blank">
+        <div><div class="contact-link-label">CV</div><div class="contact-link-val">Download PDF</div></div>
+        <span class="contact-link-arrow">↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>吳昕諺 Hsin-Yen Wu · NCCU GCIT</span>
+  <span>© 2025</span>
+</footer>
+
+<script>
+const o=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);o.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>o.observe(el));
+</script>
+</body>
+</html>
