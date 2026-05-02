@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>演算法工作繞道教案 — 吳昕諺</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FAFAF8;--bg-card:#F5F5F2;--ink:#1C1C1A;--mid:#888884;--soft:#B8B8B4;
+  --accent:#7C6F5B;--accent-light:#F2EDE6;--warm:#C06B42;--warm-light:#FAF0EA;
+  --line:#E8E8E4;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;padding:3rem 1.5rem}
+.wrap{max-width:680px;margin:0 auto}
+.back{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--soft);text-decoration:none;margin-bottom:2.5rem;letter-spacing:0.04em;transition:color 0.2s}
+.back:hover{color:var(--ink)}
+
+.eyebrow{font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:1.25rem}
+.page-title{font-size:clamp(2rem,4.5vw,3.5rem);font-weight:300;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);margin-bottom:0.5rem}
+.page-title em{font-style:italic;color:var(--mid);font-size:0.55em;display:block;margin-top:0.5rem;letter-spacing:0;font-weight:300}
+.status-line{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.72rem;letter-spacing:0.08em;color:var(--soft);background:var(--bg-card);border:1px solid var(--line);padding:0.4rem 0.85rem;border-radius:99px;margin-bottom:3rem}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--warm)}
+
+.section{margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--line)}
+.section:last-of-type{border-bottom:none}
+.section-label{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--soft);margin-bottom:1rem}
+.section-body{font-size:0.92rem;color:var(--mid);line-height:1.95}
+.section-body strong{color:var(--ink);font-weight:400}
+.section-body p+p{margin-top:1rem}
+.quote{border-left:2px solid var(--line);padding:0.6rem 1.1rem;margin:1.25rem 0;font-size:0.88rem;color:var(--soft);font-style:italic;line-height:1.75}
+
+.cases-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.25rem}
+.case-item{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;padding:0.95rem 1.1rem}
+.case-group{font-size:0.62rem;font-weight:500;color:var(--soft);margin-bottom:0.25rem;text-transform:uppercase;letter-spacing:0.08em}
+.case-title{font-size:0.88rem;font-weight:400;color:var(--ink);margin-bottom:0.25rem}
+.case-desc{font-size:0.78rem;color:var(--mid);line-height:1.65}
+
+.activity-sketch{background:var(--bg-card);border:1px solid var(--line);border-radius:2px;padding:1.5rem;margin-top:1rem}
+.activity-sketch p{font-size:0.88rem;color:var(--mid);line-height:1.85}
+.activity-sketch p+p{margin-top:0.75rem}
+
+.coming-box{background:var(--warm-light);border:1px solid var(--warm);border-radius:2px;padding:1.5rem;text-align:center;margin-top:2rem}
+.coming-title{font-size:1rem;color:var(--warm);font-weight:400;margin-bottom:0.4rem}
+.coming-desc{font-size:0.85rem;color:var(--mid);line-height:1.7}
+
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);font-size:0.72rem;color:var(--soft);display:flex;justify-content:space-between}
+footer a{color:var(--soft);text-decoration:none}
+footer a:hover{color:var(--ink)}
+
+@media(max-width:600px){body{padding:2rem 1.25rem}.cases-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="index.html" class="back">← 回首頁</a>
+
+  <div class="eyebrow">03 · Algorithmic Workarounds</div>
+  <h1 class="page-title">演算法工作繞道<em>Workarounds & Social Steganography</em></h1>
+
+  <div class="status-line">
+    <span class="status-dot"></span>
+    <span>籌備中 · 教案設計尚未完成</span>
+  </div>
+
+  <div class="section">
+    <div class="section-label">核心概念</div>
+    <div class="section-body">
+      <p>面對平台的限制與監控，使用者並不是被動的受害者。<strong>演算法工作繞道（Algorithmic Workarounds）</strong>指使用者透過理解演算法的運作邏輯，發展出一套「迴避、繞過、馴服」的策略——讓訊息得以傳遞，又不觸發平台的審查機制。</p>
+      <p>danah boyd 將其中一種典型策略稱為<strong>社交隱寫術（Social Steganography）</strong>——讓訊息「藏在公開之中」，看似人人都能看見，但只有「對的人」能解讀。</p>
+      <div class="quote">「我發那句歌詞，媽媽以為我在分享音樂，但我朋友知道我在說什麼。」</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">繞道策略的種類</div>
+    <div class="section-body">
+      <div class="cases-grid">
+        <div class="case-item">
+          <div class="case-group">語言層</div>
+          <div class="case-title">諧音、火星文、暗語</div>
+          <div class="case-desc">用「同志」→「TZ」、「自殺」→「ksk」規避關鍵字偵測，同時讓社群內部仍能辨識。</div>
+        </div>
+        <div class="case-item">
+          <div class="case-group">符號層</div>
+          <div class="case-title">Emoji 與隱喻</div>
+          <div class="case-desc">🌈、🍉、🔞 等 emoji 承載特定社群意義，看似無害卻是身份識別的密碼。</div>
+        </div>
+        <div class="case-item">
+          <div class="case-group">結構層</div>
+          <div class="case-title">分流帳號 / vertical content</div>
+          <div class="case-desc">主號發「安全」內容、小號或限動發「真實」內容，建立精準的觀眾分眾。</div>
+        </div>
+        <div class="case-item">
+          <div class="case-group">時序層</div>
+          <div class="case-title">發文時機與秒刪</div>
+          <div class="case-desc">挑選平台流量低谷發文、設定限時動態、發完即刪——讓訊息只在「對的時間」存在。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">為什麼這個概念重要</div>
+    <div class="section-body">
+      <p>研究演算法繞道，揭露的是<strong>數位生存的不對稱性</strong>——當主流使用者可以「就這樣發」，邊緣族群必須學會一整套加密、解密、計算觀眾的隱形勞動。這份「工作」是看不見的，卻是真實的成本。</p>
+      <p>但同時，這也是邊緣社群<strong>展現韌性與創造力</strong>的證明。理解繞道策略，不是教學生「如何規避平台」，而是讓他們看見：<strong>使用者並非毫無能動性</strong>，平台與使用者的關係始終是動態的協商。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">活動發想方向（初步）</div>
+    <div class="activity-sketch">
+      <p>給定一個「敏感主題」（例如：對某政策的批評、出櫃宣告、心理求助），讓學生分組設計發文策略——目標是<strong>讓特定觀眾看見、其他人看不懂</strong>。</p>
+      <p>各組互相觀察彼此的貼文，嘗試破解對方的密碼系統。最後反思：<strong>誰被你包含？誰被你排除？這套語言又是怎麼形成的？</strong></p>
+      <p>這個活動同時觸及語言創造、社群歸屬、與平台政治三個層次。</p>
+    </div>
+  </div>
+
+  <div class="coming-box">
+    <div class="coming-title">完整教案設計即將上線</div>
+    <div class="coming-desc">這個概念也將參考第一個教案的格式，包含 AI 客製化生成功能。</div>
+  </div>
+
+  <footer>
+    <span>吳昕諺 Hsin-Yen Wu · 教案發想</span>
+    <a href="index.html">← 回首頁</a>
+  </footer>
+</div>
+</body>
+</html>
