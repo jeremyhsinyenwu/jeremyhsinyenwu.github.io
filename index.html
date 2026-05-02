@@ -42,8 +42,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-desc strong{color:var(--ink);font-weight:400}
 .hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
 .tag{font-size:0.68rem;letter-spacing:0.06em;padding:0.3rem 0.8rem;border:1px solid var(--line);border-radius:2px;color:var(--soft);background:var(--bg-card)}
-.hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding:6rem 4rem}
-.hero-photo{width:100%;aspect-ratio:3/4;max-height:520px;background:linear-gradient(150deg,#E8EDE8 0%,#EDE8E2 60%,#E8DDD6 100%);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--soft)}
+.hero-right{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:6rem 4rem}
+.hero-photo{width:100%;max-width:560px;border-radius:2px;display:block;object-fit:cover}
 
 /* SECTIONS */
 section{padding:7rem 4rem;border-top:1px solid var(--line)}
@@ -114,11 +114,13 @@ section{padding:7rem 4rem;border-top:1px solid var(--line)}
 .cooking-title{font-size:clamp(2.2rem,4.5vw,4rem);font-weight:300;line-height:1.1;margin-bottom:1.25rem;letter-spacing:-0.01em}
 .cooking-title em{font-style:italic;color:#C9A96E}
 .cooking-body{font-size:0.9rem;color:rgba(250,250,248,0.5);line-height:1.9;max-width:40ch}
-.cooking-right{display:flex;flex-direction:column;gap:1px;background:rgba(250,250,248,0.07);border:1px solid rgba(250,250,248,0.07);border-radius:2px;overflow:hidden}
-.cuisine-item{padding:1.35rem 1.75rem;background:rgba(250,250,248,0.02);display:flex;justify-content:space-between;align-items:center;transition:background 0.2s}
-.cuisine-item:hover{background:rgba(250,250,248,0.06)}
-.cuisine-name{font-size:0.95rem;font-weight:300;color:rgba(250,250,248,0.85)}
-.cuisine-note{font-size:0.72rem;color:rgba(250,250,248,0.28);letter-spacing:0.04em;font-style:italic}
+.cooking-right{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.cuisine-card{background:rgba(250,250,248,0.04);border:1px solid rgba(250,250,248,0.08);border-radius:2px;padding:1.4rem 1.4rem 1.5rem;transition:background 0.25s,border-color 0.25s,transform 0.25s;position:relative;overflow:hidden}
+.cuisine-card:hover{background:rgba(250,250,248,0.08);border-color:rgba(201,169,110,0.35);transform:translateY(-2px)}
+.cuisine-card-wide{grid-column:1/-1}
+.cuisine-num{font-size:0.65rem;letter-spacing:0.18em;color:rgba(201,169,110,0.6);font-style:italic;margin-bottom:1rem}
+.cuisine-name{font-size:1.05rem;font-weight:400;color:rgba(250,250,248,0.92);margin-bottom:0.4rem;letter-spacing:-0.01em}
+.cuisine-note{font-size:0.78rem;color:rgba(250,250,248,0.42);font-style:italic;line-height:1.5}
 
 /* CONTACT */
 .contact-section{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
@@ -147,6 +149,8 @@ footer{padding:2rem 4rem;border-top:1px solid var(--line);display:flex;justify-c
   .section-num{font-size:3rem}
   .work-item{grid-template-columns:1fr;gap:0.4rem}
   .edu-intro,.cooking-inner,.contact-section{grid-template-columns:1fr;gap:2.5rem}
+  .cooking-right{grid-template-columns:1fr}
+  .cuisine-card-wide{grid-column:1}
   .cooking-section{padding:5rem 1.5rem}
   footer{flex-direction:column;gap:0.5rem;text-align:center}
 }
@@ -190,7 +194,7 @@ footer{padding:2rem 4rem;border-top:1px solid var(--line);display:flex;justify-c
     </div>
   </div>
   <div class="hero-right">
-    <img src="IMG_1570.jpg" class="hero-photo" style="object-fit:cover;object-position:center top;width:100%;height:100%;display:block;">
+    <img src="IMG_1570.jpg" class="hero-photo" alt="Hsin-Yen Wu">
   </div>
 </section>
 
@@ -328,11 +332,31 @@ footer{padding:2rem 4rem;border-top:1px solid var(--line);display:flex;justify-c
       <p class="cooking-body">My biggest dream right now is to have my own kitchen and make cuisine — food as a way of thinking about culture, care, and craft. The stove is where I slow down.</p>
     </div>
     <div class="cooking-right fade-in">
-      <div class="cuisine-item"><span class="cuisine-name">Taiwanese cuisine</span><span class="cuisine-note">home, always</span></div>
-      <div class="cuisine-item"><span class="cuisine-name">Thai & Korean</span><span class="cuisine-note">not authentic, but made with love</span></div>
-      <div class="cuisine-item"><span class="cuisine-name">Filipino food</span><span class="cuisine-note">taste of memory</span></div>
-      <div class="cuisine-item"><span class="cuisine-name">Sashimi</span><span class="cuisine-note">a definite yes</span></div>
-      <div class="cuisine-item"><span class="cuisine-name">Bubble tea</span><span class="cuisine-note">not a drink. an identity.</span></div>
+      <div class="cuisine-card">
+        <div class="cuisine-num">01</div>
+        <div class="cuisine-name">Taiwanese cuisine</div>
+        <div class="cuisine-note">home, always</div>
+      </div>
+      <div class="cuisine-card">
+        <div class="cuisine-num">02</div>
+        <div class="cuisine-name">Thai & Korean</div>
+        <div class="cuisine-note">not authentic — but made with love</div>
+      </div>
+      <div class="cuisine-card">
+        <div class="cuisine-num">03</div>
+        <div class="cuisine-name">Filipino food</div>
+        <div class="cuisine-note">taste of memory</div>
+      </div>
+      <div class="cuisine-card">
+        <div class="cuisine-num">04</div>
+        <div class="cuisine-name">Sashimi</div>
+        <div class="cuisine-note">a definite yes</div>
+      </div>
+      <div class="cuisine-card cuisine-card-wide">
+        <div class="cuisine-num">05</div>
+        <div class="cuisine-name">Bubble tea</div>
+        <div class="cuisine-note">not a drink — an identity.</div>
+      </div>
     </div>
   </div>
 </section>
