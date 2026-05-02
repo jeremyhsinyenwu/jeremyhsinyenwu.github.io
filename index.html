@@ -99,7 +99,14 @@ section{padding:7rem 4rem;border-top:1px solid var(--line)}
 .edu-card-tag.sage{color:var(--accent)}
 .edu-card-title{font-size:1rem;font-weight:400;line-height:1.4;color:var(--ink);margin-bottom:0.7rem}
 .edu-card-desc{font-size:0.82rem;color:var(--mid);line-height:1.8;margin-bottom:1.1rem}
-.edu-card-meta{display:flex;gap:0.75rem;font-size:0.72rem;color:var(--soft);border-top:1px solid var(--line);padding-top:0.9rem}
+.edu-card-meta{display:flex;gap:0.75rem;justify-content:space-between;align-items:center;font-size:0.72rem;color:var(--soft);border-top:1px solid var(--line);padding-top:0.9rem}
+.edu-card-en{font-size:0.78rem;color:var(--soft);font-style:italic;font-weight:300;display:inline-block;margin-top:0.25rem;letter-spacing:0.01em}
+.edu-card-title{display:flex;flex-direction:column}
+.meta-status{font-size:0.66rem;letter-spacing:0.08em}
+.meta-live{color:var(--accent)}
+.meta-soon{color:var(--faint,#C8C8C4)}
+.edu-card-soon{opacity:0.78;transition:opacity 0.25s}
+.edu-card-soon:hover{opacity:1}
 .edu-philosophy{padding-bottom:3rem;margin-bottom:3rem;border-bottom:1px solid var(--line)}
 .edu-philo-main{font-family:var(--sans);font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:300;color:var(--ink);line-height:1.4;margin-bottom:1.5rem;letter-spacing:-0.01em}
 .edu-philo-main-en{font-style:italic;color:var(--mid);font-size:0.75em}
@@ -296,30 +303,30 @@ footer{padding:2rem 4rem;border-top:1px solid var(--line);display:flex;justify-c
     <a href="teaching-tool.html" class="edu-card" style="text-decoration:none;display:block">
       <div class="edu-card-head sage"></div>
       <div class="edu-card-body">
-        <div class="edu-card-tag sage">平台權力 · 語境崩塌</div>
-        <h3 class="edu-card-title">語境崩塌角色身份追查活動</h3>
-        <p class="edu-card-desc">學生扮演虛構角色在平台公開展現身份，同時隱藏真實自我。部分學生負責追查他人身份——親身體驗語境崩塌與平台設計的危險性。內建 AI 教案生成器，老師填寫條件即可得到客製化教案。</p>
-        <div class="edu-card-meta"><span>含 AI 教案生成</span><span>適用各年齡層</span><span>開啟工具 →</span></div>
+        <div class="edu-card-tag sage">01 · Context Collapse</div>
+        <h3 class="edu-card-title">語境崩塌<br><span class="edu-card-en">+ Default Publicness</span></h3>
+        <p class="edu-card-desc">學生扮演虛構角色在平台公開展現身份，同時隱藏真實自我。部分學生擔任追查者——親身體驗平台「預設公開性」如何讓語境邊界瞬間瓦解。</p>
+        <div class="edu-card-meta"><span class="meta-status meta-live">● 已上線</span><span>含 AI 教案生成 →</span></div>
       </div>
     </a>
-    <div class="edu-card">
+    <a href="teaching-restricted.html" class="edu-card edu-card-soon" style="text-decoration:none;display:block">
       <div class="edu-card-head"></div>
       <div class="edu-card-body">
-        <div class="edu-card-tag">數位公民素養</div>
-        <h3 class="edu-card-title">〔發想中〕第二個教案概念</h3>
-        <p class="edu-card-desc">可以是數位足跡、演算法推薦、平台權力結構，或其他你有興趣的主題。</p>
-        <div class="edu-card-meta"><span>規劃中</span></div>
+        <div class="edu-card-tag">02 · Restricted Expression</div>
+        <h3 class="edu-card-title">表意限制<br><span class="edu-card-en">+ Chilling Effect</span></h3>
+        <p class="edu-card-desc">當演算法、社群壓力、平台政策共同形塑「什麼可以說、什麼不能說」，學生親身經歷自我審查的過程，理解寒蟬效應如何在數位空間中悄悄發生。</p>
+        <div class="edu-card-meta"><span class="meta-status meta-soon">○ 籌備中</span><span>Coming soon</span></div>
       </div>
-    </div>
-    <div class="edu-card">
+    </a>
+    <a href="teaching-workaround.html" class="edu-card edu-card-soon" style="text-decoration:none;display:block">
       <div class="edu-card-head mixed"></div>
       <div class="edu-card-body">
-        <div class="edu-card-tag">傳播 × HCI</div>
-        <h3 class="edu-card-title">〔發想中〕第三個教案概念</h3>
-        <p class="edu-card-desc">可以是 AI 工具的倫理討論、Podcast 製作作為傳播實踐，或其他你有興趣的主題。</p>
-        <div class="edu-card-meta"><span>規劃中</span></div>
+        <div class="edu-card-tag">03 · Algorithmic Workarounds</div>
+        <h3 class="edu-card-title">演算法工作繞道<br><span class="edu-card-en">+ Social Steganography</span></h3>
+        <p class="edu-card-desc">面對平台的限制與監控，使用者並非被動受害者。學生透過實作體驗如何用 emoji、諧音、暗語等策略，在演算法夾縫中傳遞訊息給「對的人」。</p>
+        <div class="edu-card-meta"><span class="meta-status meta-soon">○ 籌備中</span><span>Coming soon</span></div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
